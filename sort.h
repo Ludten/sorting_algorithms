@@ -46,8 +46,8 @@ void print_array(const int *array, size_t size);
 
 void print_list(const listint_t *list);
 
-void quicksil(int *array, int low, int high, size_t size);
+void quicksil(int *array, long low, long high, size_t size);
 
-int lomutoPartition(int *array, int low, int high, size_t size);
+long lomutoPartition(int *array, long low, long high, size_t size);
 
 #endif

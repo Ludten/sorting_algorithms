@@ -9,7 +9,7 @@
  * @size: Array size
  * Return: Pivot index
  */
-int lomutoPartition(int *array, int low, int high, size_t size)
+long lomutoPartition(int *array, long low, long high, size_t size)
 {
 	int pivot, temp, i, j;
 	(void)size;
@@ -42,9 +42,9 @@ int lomutoPartition(int *array, int low, int high, size_t size)
  * @high: high
  * @size: Size of array
  */
-void quicksil(int *array, int low, int high, size_t size)
+void quicksil(int *array, long low, long high, size_t size)
 {
-	int parti;
+	long parti;
 
 	if (low > high)
 		return;
@@ -62,5 +62,5 @@ void quicksil(int *array, int low, int high, size_t size)
  */
 void quick_sort(int *array, size_t size)
 {
-	quicksil(array, 0, (int)(size - 1), size);
+	quicksil(array, 0, (long)(size - 1), size);
 }
