@@ -54,8 +54,8 @@ long lomutoPartition(int *array, long low, long high, size_t size);
 
 int _max(int *arr, size_t size);
 
-void topdownmerge(int *array, int *work, size_t begin, size_t mid, size_t end);
+void split_merge(int *array, int *array_c, size_t l, size_t r);
 
-void topdownsplit(int *work, int *array, size_t begin, size_t end);
+void top_down_merge(int *array, int *array_c, size_t l, size_t m, size_t r);
 
 #endif

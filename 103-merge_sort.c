@@ -1,84 +1,79 @@
 #include "sort.h"
 
 /**
- * topdownmerge - Top Down Merge for merge sort
- *
- * @work: work array
- * @begin: beginning
- * @mid: middle
- * @end: end
- * @array: array to be sorted
+ * top_down_merge - Merges an array that has been split using the
+ * top-down approach.
+ * @array: The array to merge.
+ * @array_c: The temporary array.
+ * @l: The left index of the split-array.
+ * @m: The mid-point of the split-array.
+ * @r: The right index of the split-array.
  */
-void topdownmerge(int *array, int *work, size_t begin, size_t mid, size_t end)
+void top_down_merge(int *array, int *array_c, size_t l, size_t m, size_t r)
 {
-	size_t i, j, k;
-
-	i = begin;
-	j = mid;
+	size_t a = l, b = m, c;
 
 	printf("Merging...\n");
 	printf("[left]: ");
-	print_array(array + begin, (mid - begin));
+	print_array(array + l, m - l);
 	printf("[right]: ");
-	print_array(array + mid, (end - mid));
-
-	for (k = begin; k < end; k++)
+	print_array(array + (m), r - m);
+	for (c = l; c < r; c++)
 	{
-		if ((i < mid) && ((j >= end) || (work[i] <= work[j])))
+		if ((a < m) && ((b >= r) || (array_c[a] <= array_c[b])))
 		{
-			array[k] = work[i++];
+			array[c] = array_c[a++];
 		}
 		else
 		{
-			array[k] = work[j++];
+			array[c] = array_c[b++];
 		}
 	}
-
-	printf("[Done]:");
-	print_array(array + begin, (end - begin));
+	printf("[Done]: ");
+	print_array(array + l, r - l);
 }
 
 /**
- * topdownsplit - Top Down Split Merge
- *
- * @work: work array
- * @begin: beginning
- * @end: end
- * @array: array to be sorted
+ * split_merge - Sorts an array that has been split using the
+ * merge sort algorithm.
+ * @array: The array that has been split.
+ * @array_c: The temporary array.
+ * @l: The left index of the split-array.
+ * @r: The right index of the split-array.
  */
-void topdownsplit(int *work, int *array, size_t begin, size_t end)
+void split_merge(int *array, int *array_c, size_t l, size_t r)
 {
-	size_t i, n;
+	size_t i, mid;
 
-	if (end - begin > 1)
-	{
-		n = (end + begin) / 2;
-		topdownsplit(array, work, begin, n);
-		topdownsplit(array, work, n, end);
-		for (i = begin; i <= end; i++)
-			work[i] = array[i];
-		topdownmerge(array, work, begin, n, end);
-	}
+	if ((r - l) <= 1)
+		return;
+	mid = (l + r) / 2;
+	split_merge(array, array_c, l, mid);
+	split_merge(array, array_c, mid, r);
+	for (i = l; i <= r; i++)
+		array_c[i] = array[i];
+	top_down_merge(array, array_c, l, mid, r);
 }
 
 /**
- * merge_sort - Top Down Merge Sort
- *
- * @array: Array
- * @size: Size of array
+ * merge_sort - Sorts an array using the merge sort algorithm.
+ * @array: The array to sort.
+ * @size: The length of the array.
  */
 void merge_sort(int *array, size_t size)
 {
-	int *work;
 	size_t i;
+	int *array_c = NULL;
 
-	if (array == NULL || size < 2)
-		return;
-	work = malloc(sizeof(int) * size);
-	if (!work)
-		return;
-	for (i = 0; i < size; i++)
-		work[i] = array[i];
-	topdownsplit(work, array, 0, size);
-	free(work);
+	if (array != NULL)
+	{
+		array_c = malloc(sizeof(int) * size);
+		if (array_c != NULL)
+		{
+			for (i = 0; i < size; i++)
+				array_c[i] = array[i];
+			split_merge(array, array_c, 0, size);
+			free(array_c);
+		}
+	}
 }
