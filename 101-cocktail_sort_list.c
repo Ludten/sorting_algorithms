@@ -52,7 +52,7 @@ void cocktail_sort_list(listint_t **list)
 				print_list(*list);
 				swapped = 1;
 			}
-			current = current->next;
+			current = next;
 		}
 		if (!swapped)
 			break;
