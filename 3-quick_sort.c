@@ -19,11 +19,14 @@ long lomutoPartition(int *array, long low, long high, size_t size)
 	{
 		if (array[j] <= pivot)
 		{
-			temp = array[i];
-			array[i] = array[j];
-			array[j] = temp;
+			if (i != j)
+			{
+				temp = array[i];
+				array[i] = array[j];
+				array[j] = temp;
+				print_array(array, size);
+			}
 			++i;
-			print_array(array, size);
 		}
 	}
 	if (i != high)
