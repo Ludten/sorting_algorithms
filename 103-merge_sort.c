@@ -53,7 +53,7 @@ void topdownsplit(int *work, size_t begin, size_t end, int *array)
 
 	if (end - begin <= 1)
 		return;
-	n = (end + begin) / 2;
+	n = (end - begin) / 2 + begin;
 
 	topdownsplit(array, begin, n, work);
 	topdownsplit(array, n, end, work);
