@@ -1,5 +1,24 @@
 #include "sort.h"
 
+void swap(listint_t **left, listint_t **right, listint_t **list)
+{
+	listint_t *tmp;
+
+	tmp = (*left)->prev;
+	if (tmp)
+		tmp->next = *right;
+	else
+		*list = *right;
+	(*right)->prev = tmp;
+
+	(*left)->prev = *right;
+	(*left)->next = (*right)->next;
+	(*right)->next = *left;
+	if ((*left)->next != NULL)
+		(*left)->next->prev = (*left);
+	(*left) = tmp;
+}
+
 /**
  * insertion_sort_list - insertion sort algorithm
  *
@@ -8,7 +27,7 @@
  */
 void insertion_sort_list(listint_t **list)
 {
-	listint_t *sorted, *next, *tmp;
+	listint_t *sorted, *next;
 	listint_t *current = (*list)->next;
 
 	if (list == NULL || *list == NULL || (*list)->next == NULL)
@@ -23,19 +42,7 @@ void insertion_sort_list(listint_t **list)
 			current = current->prev;
 		while (sorted != NULL && (sorted->n > next->n))
 		{
-			tmp = sorted->prev;
-			if (tmp)
-				tmp->next = next;
-			else
-				*list = next;
-			next->prev = tmp;
-
-			sorted->prev = next;
-			sorted->next = next->next;
-			next->next = sorted;
-			if (sorted->next != NULL)
-				sorted->next->prev = sorted;
-			sorted = tmp;
+			swap(&sorted, &next, list);
 			print_list(*list);
 		}
 		current = current->next;
