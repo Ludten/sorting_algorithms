@@ -9,9 +9,9 @@
  * @end: end
  * @array: array to be sorted
  */
-void topdownmerge(int *work, int begin, int mid, int end, int *array)
+void topdownmerge(int *work, size_t begin, size_t mid, size_t end, int *array)
 {
-	int i, j, k;
+	size_t i, j, k;
 
 	i = begin;
 	j = mid;
@@ -47,9 +47,9 @@ void topdownmerge(int *work, int begin, int mid, int end, int *array)
  * @end: end
  * @array: array to be sorted
  */
-void topdownsplit(int *work, int begin, int end, int *array)
+void topdownsplit(int *work, size_t begin, size_t end, int *array)
 {
-	int n;
+	size_t n;
 
 	if (end - begin <= 1)
 		return;
@@ -70,9 +70,9 @@ void topdownsplit(int *work, int begin, int end, int *array)
  * @begin: Beginning
  * @size: Array size
  */
-void copyarray(int *array, int *work, int begin, int size)
+void copyarray(int *array, int *work, size_t begin, size_t size)
 {
-	int i;
+	size_t i;
 
 	for (i = begin; i < size; i++)
 		work[i] = array[i];
@@ -93,7 +93,7 @@ void merge_sort(int *array, size_t size)
 	work = malloc(sizeof(int) * size);
 	if (!work)
 		return;
-	copyarray(array, work, 0, (int)size);
-	topdownsplit(work, 0, (int)size, array);
+	copyarray(array, work, 0, size);
+	topdownsplit(work, 0, size, array);
 	free(work);
 }
