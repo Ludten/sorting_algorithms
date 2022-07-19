@@ -16,8 +16,8 @@ void insertion_sort_list(listint_t **list)
 
 	while (current != NULL)
 	{
-		next = current->next;
-		sorted = current;
+		next = current;
+		sorted = current->prev;
 		if (next)
 		{
 			if (sorted->n > next->n)
