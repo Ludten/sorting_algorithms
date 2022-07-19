@@ -9,9 +9,12 @@
  * @end: end
  * @array: array to be sorted
  */
-void topdownmerge(int *work, int *array, size_t begin, size_t mid, size_t end)
+void topdownmerge(int *array, int *work, size_t begin, size_t mid, size_t end)
 {
-	size_t i, j, k = 0;
+	size_t i, j, k;
+
+	i = begin;
+	j = mid;
 
 	printf("Merging...\n");
 	printf("[left]: ");
@@ -19,21 +22,17 @@ void topdownmerge(int *work, int *array, size_t begin, size_t mid, size_t end)
 	printf("[right]: ");
 	print_array(array + mid, (end - mid));
 
-	for (i = begin, j = mid; i < mid && j < end; k++)
+	for (k = begin; k < end; k++)
 	{
-		if (array[i] < array[j])
-			work[k] = array[i++];
+		if ((i < mid) && ((j >= end) || (work[i] <= work[j])))
+		{
+			array[k] = work[i++];
+		}
 		else
-			work[k] = array[j++];
+		{
+			array[k] = work[j++];
+		}
 	}
-
-	while (i < mid)
-		work[k++] = array[i++];
-	while (j < end)
-		work[k++] = array[j++];
-
-	for (k = begin, i = 0; k < end; k++)
-		array[k] = work[i++];
 
 	printf("[Done]:");
 	print_array(array + begin, (end - begin));
@@ -49,14 +48,16 @@ void topdownmerge(int *work, int *array, size_t begin, size_t mid, size_t end)
  */
 void topdownsplit(int *work, int *array, size_t begin, size_t end)
 {
-	size_t n;
+	size_t i, n;
 
 	if (end - begin > 1)
 	{
-		n = (end - begin) / 2 + begin;
-		topdownsplit(work, array, begin, n);
-		topdownsplit(work, array, n, end);
-		topdownmerge(work, array, begin, n, end);
+		n = (end + begin) / 2;
+		topdownsplit(array, work, begin, n);
+		topdownsplit(array, work, n, end);
+		for (i = begin; i <= end; i++)
+			work[i] = array[i];
+		topdownmerge(array, work, begin, n, end);
 	}
 }
 
@@ -69,12 +70,15 @@ void topdownsplit(int *work, int *array, size_t begin, size_t end)
 void merge_sort(int *array, size_t size)
 {
 	int *work;
+	size_t i;
 
 	if (array == NULL || size < 2)
 		return;
 	work = malloc(sizeof(int) * size);
 	if (!work)
 		return;
+	for (i = 0; i < size; i++)
+		work[i] = array[i];
 	topdownsplit(work, array, 0, size);
 	free(work);
 }
