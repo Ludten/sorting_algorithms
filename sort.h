@@ -58,4 +58,6 @@ void split_merge(int *array, int *array_c, size_t l, size_t r);
 
 void top_down_merge(int *array, int *array_c, size_t l, size_t m, size_t r);
 
+void heapy(int *arr, size_t n, size_t i, size_t size);
+
 #endif
