@@ -20,6 +20,8 @@ void insertion_sort_list(listint_t **list)
 		sorted = current;
 		if (next)
 		{
+			if (sorted->n > next->n)
+				current = current->prev;
 			while (sorted != NULL && (sorted->n > next->n))
 			{
 				tmp = sorted->prev;
@@ -38,6 +40,6 @@ void insertion_sort_list(listint_t **list)
 				print_list(*list);
 			}
 		}
-		current = next;
+		current = current->next;
 	}
 }
