@@ -31,12 +31,13 @@ void counting_sort(int *array, size_t size)
 {
 	int i, n, *output, *count, max;
 
-	max = _max(array, size);
-	n = (int)size;
-
 	output = malloc(sizeof(int) * size);
 	if (!output)
 		return;
+
+	max = _max(array, size);
+	n = (int)size;
+
 	count = malloc(sizeof(int) * (max + 1));
 	if (!count)
 	{
