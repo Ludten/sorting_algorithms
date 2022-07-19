@@ -1,5 +1,12 @@
 #include "sort.h"
 
+/**
+ * swap - swap nodes
+ *
+ * @left: left node
+ * @right: right node
+ * @list: linked list
+ */
 void swap(listint_t **left, listint_t **right, listint_t **list)
 {
 	listint_t *tmp;
@@ -27,12 +34,12 @@ void swap(listint_t **left, listint_t **right, listint_t **list)
  */
 void insertion_sort_list(listint_t **list)
 {
-	listint_t *sorted, *next;
-	listint_t *current = (*list)->next;
+	listint_t *sorted, *next, *current;
 
 	if (list == NULL || *list == NULL || (*list)->next == NULL)
 		return;
 
+	current = (*list)->next;
 	while (current != NULL)
 	{
 		next = current;
