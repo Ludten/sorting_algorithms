@@ -12,7 +12,6 @@
 long lomutoPartition(int *array, long low, long high, size_t size)
 {
 	int pivot, temp, i, j;
-	(void)size;
 
 	pivot = array[high];
 	i = low;
@@ -27,10 +26,13 @@ long lomutoPartition(int *array, long low, long high, size_t size)
 			print_array(array, size);
 		}
 	}
-	temp = array[i];
-	array[i] = array[high];
-	array[high] = temp;
-	print_array(array, size);
+	if (i != high)
+	{
+		temp = array[i];
+		array[i] = array[high];
+		array[high] = temp;
+		print_array(array, size);
+	}
 	return (i);
 }
 
