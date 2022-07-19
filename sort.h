@@ -52,4 +52,6 @@ void quicksil(int *array, long low, long high, size_t size);
 
 long lomutoPartition(int *array, long low, long high, size_t size);
 
+int _max(int *arr, size_t size);
+
 #endif
