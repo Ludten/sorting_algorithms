@@ -9,7 +9,7 @@
 void radix_sort(int *array, size_t size)
 {
 	int digits = 0, i, j, max_val = 0, base = 10, pow_b;
-	int *bins = NULL, *counts = NULL, sorted = FALSE;
+	int *bins = NULL, *counts = NULL, sorted = 0;
 
 	if ((array == NULL) || (size < 2))
 		return;
@@ -32,7 +32,7 @@ void radix_sort(int *array, size_t size)
 			bins[--counts[(array[j] / pow_b) % base]] = array[j];
 		for (j = 0; j < (int)size; j++)
 			array[j] = bins[j];
-		print_array(array, size), sorted = TRUE;
+		print_array(array, size), sorted = 1;
 	}
 	if ((!max_val && !sorted) && (size > 0))
 		print_array(array, size);
