@@ -64,4 +64,8 @@ void quicksort(int *array, int low, int high, size_t size);
 
 int hoarepartition(int *array, int low, int high, size_t size);
 
+void bitonic_recursion(int *array, int l, int r, int dir, size_t size);
+
+void bitonic_merge(int *array, int l, int r, int dir);
+
 #endif
